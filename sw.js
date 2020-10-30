@@ -35,30 +35,30 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-            const respuesta = caches.keys().then(keys => {
-                    keys.forEach(key => {
-                            if (key != STATIC_CACHE && key.includes('static')) {
-                                return caches.delete(key);
-                            }
-                            if (key != INMUTABLE_CACHE && key.includes('inmutable') {
+    const respuesta = caches.keys().then(keys => {
+        keys.forEach(key => {
+            if (key != STATIC_CACHE && key.includes('static')) {
+                return caches.delete(key);
+            }
+            if (key != INMUTABLE_CACHE && key.includes('inmutable')) {
 
-                                }
-                            });
-                    });
-
-                e.waitUntil(respuesta);
-            });
-
-        self.addEventListener('fetch', e => {
-            const respuesta = caches.match(e.request).then(cache => {
-                if (cache) {
-                    return cache;
-                } else {
-                    return fetch(e.request).then(newRes => {
-                        return updateDynamicCache(DYNAMIC_CACHE, e.request, newRes);
-                    });
-                }
-            });
-
-            e.respondWith(respuesta);
+            }
         });
+    });
+
+    e.waitUntil(respuesta);
+});
+
+self.addEventListener('fetch', e => {
+    const respuesta = caches.match(e.request).then(cache => {
+        if (cache) {
+            return cache;
+        } else {
+            return fetch(e.request).then(newRes => {
+                return updateDynamicCache(DYNAMIC_CACHE, e.request, newRes);
+            });
+        }
+    });
+
+    e.respondWith(respuesta);
+});
