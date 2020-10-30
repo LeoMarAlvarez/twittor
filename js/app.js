@@ -1,5 +1,10 @@
+let location = window.location.href;
+let serviceWorker = '/twittor/sw.js';
 if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('/sw.js');
+    if (location.includes('localhost')) {
+        serviceWorker = '/sw.js';
+    }
+    navigator.serviceWorker.register(serviceWorker);
 }
 // Referencias de jQuery
 
