@@ -40,7 +40,7 @@ self.addEventListener('activate', e => {
             if (key != STATIC_CACHE && key.includes('static')) {
                 return caches.delete(key);
             }
-            if (key != INMUTABLE_CACHE && key.includes('inmutable')) {
+            if (key != DYNAMIC && key.includes('dynamic')) {
 
             }
         });
